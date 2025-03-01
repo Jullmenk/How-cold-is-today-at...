@@ -6,7 +6,7 @@ import Weather from "@/components/UI/homePage/weather/weather"
 
 const MainBox = styled.div({
   minHeight:"65vh",
-  padding:"0 25%",
+  padding:"0 25% 50px 25%",
 })
 
 

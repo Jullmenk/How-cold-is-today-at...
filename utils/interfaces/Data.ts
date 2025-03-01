@@ -25,13 +25,3 @@ export interface HourlyGroupedByDay {
   };
 }
 
-export interface Daily_Data {
-  tempMin: number;
-  tempMax: number;
-  current: number;
-  description: string;
-  icon: string;
-  feelsLike: number;
-  dayName: string;
-  dayNumber: number;
-}

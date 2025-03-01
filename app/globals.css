@@ -5,6 +5,8 @@
   --gray:#f3f4f6;
   --darkerGray:rgba(65, 65, 65, 0.308);
   --darkBlue:#1f2937;
+  --dartyGray:rgba(65, 65, 65, 0.308);
+  --Cardborder:rgba(255, 255, 255, 0.089);
 }
 *{
   box-sizing: border-box;

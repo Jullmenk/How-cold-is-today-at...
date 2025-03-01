@@ -1,0 +1,12 @@
+blurBackground n e necessario no cityChildCard
+
+
+          Object.keys(hourlyGroupedByDay).forEach((dateKey) => {
+            const dailyMin = Math.round(hourlyGroupedByDay[dateKey].details.tempMin);
+            const dailyMax = Math.round(hourlyGroupedByDay[dateKey].details.tempMax);
+            hourlyGroupedByDay[dateKey].hours = hourlyGroupedByDay[dateKey].hours.map((item,i) => ({
+              ...item,
+              tempMin: i === 0 ? dailyMin : item.tempMin,
+              tempMax: i === 0 ? dailyMax : item.tempMax,
+            }));
+          });

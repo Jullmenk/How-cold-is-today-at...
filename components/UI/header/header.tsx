@@ -16,7 +16,7 @@ const HeaderComp = styled.div`
   justify-content: start;
   flex-direction:row;
   align-items:center;
-  padding-top:30px;
+  padding-top:10px;
   `;
 
 

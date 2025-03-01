@@ -86,12 +86,12 @@ const CardContent = styled.div`
   justify-content: center;
   gap:7px;
   align-items: center;
-  background-color: rgba(65, 65, 65, 0.308);
+  background-color: var(--dartyGray);
   width: 100%;
   height: 100%;
   border-radius: 16px;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.089);
+  border: 1px solid var(--Cardborder);
 
   @media (min-width: 640px) {
     width: 170px;

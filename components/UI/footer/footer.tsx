@@ -15,13 +15,14 @@ export default function Footer() {
 
 
 const FooterDiv = styled.footer({
-    padding: "20px 25%",
+    padding: "0px 25%",
     display:"flex",
     justifyContent:"center",
     alignItems:"center"
 })
 
 const DIV = styled.div({
+    paddingTop:"20px",
     borderTop:"2px solid var(--gray)",
     width:"100%",
     display:"flex",
