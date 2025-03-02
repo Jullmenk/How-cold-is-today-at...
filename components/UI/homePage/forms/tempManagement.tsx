@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { GlobalContext } from '@/utils/hooks/useContext';
 
-// Validation schema with Yup
 const validationSchema = Yup.object({
   temp: Yup.string()
 });

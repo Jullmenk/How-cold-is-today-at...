@@ -49,7 +49,6 @@ export const CityChildCard:React.FC<CityChil> = ({Hourly,day}) => {
               <TempMaxValue>{Hourly.tempMax.toString()}&deg;</TempMaxValue>
             </TempMax>
           </TempDetails>
-          <WeatherDropDown/>
         </CardContent>
       </WeatherCard>
 
@@ -70,32 +69,18 @@ export const CityChildCard:React.FC<CityChil> = ({Hourly,day}) => {
                       <FeelsLike>{Hourly.windSpeed}</FeelsLike>
                     </CenteredDiv>
                     <CenteredDiv>
-                      <DayAndDay>{dayName} {dayNumber}</DayAndDay>
-                      <FeelsLike>Feels Like: {Hourly.feelsLike.toString()}&deg;</FeelsLike>
+                      <p>Rain</p>
+                      <FeelsLike>{Hourly.rain}</FeelsLike>
                     </CenteredDiv>
-                    {/* <ImgDiv>
-                        <Image
-                          className="animate-upAndDown"
-                          fill
-                          alt=""
-                          src={`http://openweathermap.org/img/wn/${Hourly.icon}.png`}
-                        />
-                    </ImgDiv> */}
-                    <TempDetails>
-                      <TempMin>
-                        <TempMinLabel>Min</TempMinLabel>
-                        <TempMinValue>{Hourly.tempMin.toString()}&deg;</TempMinValue>
-                      </TempMin>
-                      <TempMax>
-                        <TempMaxLabel>Max</TempMaxLabel>
-                        <TempMaxValue>{Hourly.tempMax.toString()}&deg;</TempMaxValue>
-                      </TempMax>
-                    </TempDetails>
-                    <WeatherDropDown/>
               </TopContent>
             </DropedCardContent>
       
       </MoreInfoCard>
+    
+      <DropDown $active={active}>
+        <WeatherDropDown/>
+      </DropDown>      
+    
     </Container>
   );
 };
@@ -119,7 +104,7 @@ const CenteredDiv = styled.div({
 })
 
 const WeatherCard = styled.div`
-  background-color: rgb(33, 33, 33);
+  background-color: var(--fewBlack);
   width: 100%;
   height: 200px;
   border-radius: 7px;
@@ -136,7 +121,7 @@ const WeatherCard = styled.div`
 const MoreInfoCard = styled.div<{ $active: boolean }>`
   bottom:${({ $active }) => ($active ? '0' : '-100px')};
   opacity:${({ $active }) => ($active ? '1' : '0')};  
-  background-color: rgb(33, 33, 33);
+  background-color: var(--fewBlack);
   transition: .4s ease-in;
   z-index:1;
   width: 100%;
@@ -226,7 +211,6 @@ const DayAndDay = styled.p`
   color: white;
   text-transform: uppercase;
   text-align: center;
-  animation: shimmer 1.5s infinite;
   margin:0;
 `;
 
@@ -301,3 +285,11 @@ const TempMaxValue = styled.p`
     margin:0;
 `;
 
+const DropDown = styled.div<{ $active: boolean }>`
+  position:absolute;
+  right:20px;
+  transform:${({ $active }) => ($active ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%) rotate(0deg)')};
+  transition: .4s ease-in;
+  top: 50%;
+  z-index:1000;
+`

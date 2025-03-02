@@ -88,7 +88,7 @@ const Wrapper = styled.div`
 `;
 
 const AnimatedDiv = styled.div<{ $ready: string }>`
-  max-height: ${({ $ready }) => ($ready === "on" ? '90vh' : '20px')};
+  max-height: ${({ $ready }) => ($ready === "on" ? '200vh' : '20px')};
   opacity:${({ $ready }) => ($ready === "on" ? '1' : '0')};
   width: 100%;
   overflow: hidden;

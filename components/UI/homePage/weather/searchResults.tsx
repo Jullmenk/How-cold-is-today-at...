@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { HourlyGroupedByDay } from '@/utils/interfaces/Data'
 import { CityChildCard } from '../cards/cityChildCard';
+import { Recharts } from '../../Recharts/recharts';
 
 interface SearchResultsProps {
   hourly?: HourlyGroupedByDay,
@@ -21,13 +22,16 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ hourly,name,degree
       <MainDiv>
         {hourly &&
           Object.entries(hourly).map(([date, dayData], i) => {
-            console.log(dayData.hours)
             return(
             <BoxDiv key={i}>
               <CityChildCard Hourly={dayData.hours[0]} day={date} />
             </BoxDiv>
           )})}
       </MainDiv>
+      <H2>Daily Temp</H2>
+      <Recharts hourly={hourly} kindof={true} />
+      <H2>Hourly Temp</H2>
+      <Recharts hourly={hourly} kindof={false} />
     </DIV>
   );
 };
@@ -60,11 +64,12 @@ const MainDiv = styled.div({
   display:"flex",
   flexWrap:"wrap",
   gap:"20px",
-  alignItems:"center"
+  alignItems:"center",
+  marginBottom:"20px"
 })
 
 const BoxDiv = styled.div({
-  width:"45%",
+  width:"47%",
 })
 
 

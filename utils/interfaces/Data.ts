@@ -7,8 +7,8 @@ export interface HourlyData {
   humidity: number;
   rain: number;
   feelsLike: number;
-  tempMin: number; // Daily min temp
-  tempMax: number; // Daily max temp
+  tempMin: number; 
+  tempMax: number; 
 }
 
 export interface DailyDetails {

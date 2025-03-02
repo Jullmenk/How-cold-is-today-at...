@@ -43,7 +43,7 @@ export const fetchWeather = async ({
             humidity: item.main.humidity,
             rain: item.rain ? item.rain["3h"] : 0,
             feelsLike: Math.round(item.main.feels_like),
-            tempMin: Math.round(item.main.temp_min), // Arredonda aqui
+            tempMin: Math.round(item.main.temp_min),
             tempMax: Math.round(item.main.temp_max),
           }));
     

@@ -52,7 +52,7 @@ const Container = styled.div`
 `;
 
 const WeatherCard = styled.div`
-  background-color: rgb(33, 33, 33);
+  background-color: var(--fewBlack);
   width: 100%;
   height: 200px;
   border-radius: 16px;
