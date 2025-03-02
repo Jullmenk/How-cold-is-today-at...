@@ -134,7 +134,7 @@ const WeatherCard = styled.div`
 `;
 
 const MoreInfoCard = styled.div<{ $active: boolean }>`
-  bottom:${({ $active }) => ($active ? '' : '-100px')};
+  bottom:${({ $active }) => ($active ? '0' : '-100px')};
   opacity:${({ $active }) => ($active ? '1' : '0')};  
   background-color: rgb(33, 33, 33);
   transition: .4s ease-in;
