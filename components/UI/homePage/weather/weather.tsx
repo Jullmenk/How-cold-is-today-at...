@@ -55,7 +55,7 @@ const Weather = () => {
     }
     getIP()
     
-  },[])
+  },[setCity])
 
   return (
     <Wrapper>
@@ -68,19 +68,19 @@ const Weather = () => {
           <SearchForm/>
           <TempManagement/>
       </InpandOpt>
+      {
+        err&& <p>{err}</p>
+      }
           {
             load&&(<ClimbingBoxLoader size={20} color='black'/>)
           }
       <AnimatedDiv $ready={ready}>
           {
-              err?
-              (<p>{err}</p>)
-              :
-              (hourlyData&&
-              <SearchResults cityCoord={cityCoord} name={city} degree={temp} hourly={hourlyData}/>)
+              !err&&
+              hourlyData&&
+              <SearchResults cityCoord={cityCoord} name={city} degree={temp} hourly={hourlyData}/>
           }
       </AnimatedDiv>
-      {/* <WeatherMaingPage /> */}
     </Wrapper>
   );
 };
@@ -93,7 +93,6 @@ const Wrapper = styled.div`
   padding-bottom: 10px;
   margin-top: 10px;
   @media (min-width: 600px) {
-  margin-top: 100px;
   }  
   display:flex;
   flex-direction:column;

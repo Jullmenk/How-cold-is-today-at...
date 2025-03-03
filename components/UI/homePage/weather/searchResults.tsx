@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { cityCoords, HourlyGroupedByDay } from '@/utils/interfaces/Data'
 import { CityChildCard } from '../cards/cityChildCard';
 import { Recharts } from '../../Recharts/recharts';
-import MapBoxPage from '../map/mapbox';
+import { MapBoxPage } from '../map/mapbox';
+
 
 interface SearchResultsProps {
   hourly: HourlyGroupedByDay,
@@ -35,7 +36,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ hourly,name,degree
       <H2>Hourly Temp</H2>
       <Recharts hourly={hourly} kindof={false} />
       <MapDiv>
-          <MapBoxPage cityCoord={cityCoord} city={name} tempUnit={degree}/>
+          <MapBoxPage hourlyGroupedByDay={hourly} cityCoord={cityCoord} city={name} tempUnit={degree}/>
       </MapDiv>
     </DIV>
   );
@@ -47,6 +48,7 @@ const DIV = styled.div({
     gap:"5px",
     fontSize:"12px",
     width:"100%",
+    height:"100%"
 })
 
 const H2 = styled.h2({

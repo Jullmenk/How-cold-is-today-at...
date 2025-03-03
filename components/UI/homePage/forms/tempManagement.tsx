@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Temperature from '../../assets/temperature';
 import DownIcon from '../../assets/down';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -13,16 +12,9 @@ const validationSchema = Yup.object({
 export default function TempManagement() {
   const context = useContext(GlobalContext);
 
-  if (!context) {
-    console.error('Error while getting Global Variables');
-    return null;
-  }
-
-  const { setTemp } = context;
-
   const formik = useFormik({
     initialValues: {
-      temp: 'Celcius',
+      temp: 'Celsius',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -33,7 +25,11 @@ export default function TempManagement() {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = e.target.value;
     formik.handleChange(e); 
-    setTemp(newValue);
+    if(context){
+      context.setTemp(newValue);
+    }else{
+      console.error("Error while getting Global Variables");
+    }
   };
 
   return (
@@ -46,7 +42,7 @@ export default function TempManagement() {
         onChange={handleSelectChange} 
         onBlur={formik.handleBlur}
       >
-        <Option value="Celcius">Celsius</Option>
+        <Option value="Celsius">Celsius</Option>
         <Option value="Fahrenheit">Fahrenheit</Option>
       </Select>
       {formik.touched.temp && formik.errors.temp && (

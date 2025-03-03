@@ -14,21 +14,17 @@ const validationSchema = Yup.object({
 export default function SearchForm() {
 
       const context = useContext(GlobalContext);
-    
-      if (!context) {
-        console.error("Error while getting Global Variables");
-        return null;
-    }
-    
-      const { setCity } = context;
-      
 
     const formik = useFormik({
         initialValues: { city: '' },
         validationSchema,
         onSubmit: values => {
             console.log('Form submitted with:', values.city);
-            setCity(values.city)
+            if (context) {
+                context.setCity(values.city);
+            } else {
+                console.error("Error while getting Global Variables");
+            }
         },
     });
 

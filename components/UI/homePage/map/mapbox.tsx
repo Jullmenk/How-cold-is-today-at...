@@ -1,37 +1,42 @@
-import React, { useEffect, useRef } from "react";
-import { loadMap } from "@/utils/functions";
-import { cityCoords } from "@/utils/interfaces/Data";
-import styled from "styled-components";
+import React, { useEffect, useRef } from 'react';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import styled from 'styled-components';
+import { cityCoords, HourlyGroupedByDay } from '@/utils/interfaces/Data';
+import { loadMap } from '@/utils/functions';
 
-const MapBoxPage = ({
+
+export const MapBoxPage = ({
   cityCoord,
   city,
   tempUnit,
+  hourlyGroupedByDay,
 }: {
-  cityCoord: cityCoords|undefined;
+  hourlyGroupedByDay: HourlyGroupedByDay;
+  cityCoord: cityCoords | undefined;
   city: string;
   tempUnit: string;
 }) => {
-  const mapContainer = useRef<HTMLDivElement | null>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
+  
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
 
   useEffect(() => {
-    loadMap({
-      cityCoord, // Passamos as coordenadas da cidade
-      city, // Passamos o nome da cidade
-      tempUnit, // Passamos a unidade de temperatura
-      mapContainer: mapContainer.current, // Passamos a referência atual
-      map: map.current, // Passamos o mapa atual
-      hourlyGroupedByDay: {}, // Placeholder, substitua pelos dados reais
-    });
-  }, [city, tempUnit, cityCoord]);
+      loadMap({cityCoord,city,tempUnit,mapContainerRef,mapRef,hourlyGroupedByDay})
 
-  return <DIV ref={mapContainer} />;
+      const mapInstance = mapRef.current;
+
+      return () => {
+        if (mapInstance) {
+          mapInstance.remove();
+        }
+      };
+  }, [cityCoord, city, tempUnit, hourlyGroupedByDay]); 
+
+  return <Div ref={mapContainerRef} id="map" />;
 };
 
-export default MapBoxPage;
-
-const DIV = styled.div`
-  width: 95%;
-  height: 300px;
-`;
+const Div = styled.div({
+  height: '300px',
+  width: '94%',
+  position: 'relative',
+});

@@ -16,7 +16,7 @@ export const GlobalContext = createContext<GlobalContextType | undefined>(undefi
 export const GlobalMainProvider = ({children}:{children:React.ReactNode}) =>{
 
     const [city,setCity]= useState<string>("")
-    const [temp,setTemp]= useState<string>("Celcius")
+    const [temp,setTemp]= useState<string>("Celsius")
     const [load,setLoad] = useState<boolean>(false)
 
 
