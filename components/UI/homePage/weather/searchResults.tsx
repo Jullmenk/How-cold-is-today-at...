@@ -1,16 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { HourlyGroupedByDay } from '@/utils/interfaces/Data'
+import { cityCoords, HourlyGroupedByDay } from '@/utils/interfaces/Data'
 import { CityChildCard } from '../cards/cityChildCard';
 import { Recharts } from '../../Recharts/recharts';
+import MapBoxPage from '../map/mapbox';
 
 interface SearchResultsProps {
-  hourly?: HourlyGroupedByDay,
+  hourly: HourlyGroupedByDay,
   name:string,
   degree:string,
+  cityCoord:cityCoords|undefined,
 }
 
-export const SearchResults: React.FC<SearchResultsProps> = ({ hourly,name,degree }) => {
+export const SearchResults: React.FC<SearchResultsProps> = ({ hourly,name,degree,cityCoord }) => {
 
   return (
     <DIV>
@@ -32,6 +34,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ hourly,name,degree
       <Recharts hourly={hourly} kindof={true} />
       <H2>Hourly Temp</H2>
       <Recharts hourly={hourly} kindof={false} />
+      <MapDiv>
+          <MapBoxPage cityCoord={cityCoord} city={name} tempUnit={degree}/>
+      </MapDiv>
     </DIV>
   );
 };
@@ -48,16 +53,21 @@ const H2 = styled.h2({
   margin:"0"
 })
 
-const P = styled.p({
-  fontSize:"14px"
-})
+const P = styled.p`
+  font-ize:14px;
+  display:block;
+  @media (min-width:500px) {
+  display:inline;
+  }
+`
 
-const InfoDiv = styled.div({
-  width:"100%",
-  display:"flex",
-  gap:"5px",
-  alignItems:"center"
-})
+const InfoDiv = styled.div`
+  flex-wrap;
+  width:100%;
+  display:flex;
+  gap:5px;
+  align-items:center;
+`
 
 const MainDiv = styled.div({
   width:"100%",
@@ -68,8 +78,20 @@ const MainDiv = styled.div({
   marginBottom:"20px"
 })
 
-const BoxDiv = styled.div({
-  width:"47%",
+const MapDiv = styled.div({
+  width:"100%",
+  display:"flex",
+  alignItems:"center",
+  marginTop:"20px",
+  justifyContent:"center",
 })
+
+
+const BoxDiv = styled.div`
+  width:100%;
+  @media (min-width: 900px) {
+  width:47%;
+}
+  `
 
 

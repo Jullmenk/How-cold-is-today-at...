@@ -20,7 +20,7 @@ export default function SearchForm() {
         return null;
     }
     
-      const { setWeather } = context;
+      const { setCity } = context;
       
 
     const formik = useFormik({
@@ -28,7 +28,7 @@ export default function SearchForm() {
         validationSchema,
         onSubmit: values => {
             console.log('Form submitted with:', values.city);
-            setWeather(values.city)
+            setCity(values.city)
         },
     });
 
@@ -54,7 +54,10 @@ export default function SearchForm() {
 }
 
 const Form = styled.form`
+    width:100%;
+    @media (min-width: 640px) {
     width: 55%;
+    }
     display: flex;
     align-items: center;
     padding-left: 15px;
@@ -66,7 +69,12 @@ const Input = styled.input`
     padding: 10px 30px 10px 50px;
     border-radius: 10px;
     border: 2px solid var(--gray);
-`;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    @media (max-width: 640px) {
+    font-size: 16px;
+  }
+    `;
 
 const Svg = styled.div`
     position: relative;

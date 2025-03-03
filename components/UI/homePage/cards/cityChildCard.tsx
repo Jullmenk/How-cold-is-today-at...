@@ -18,7 +18,7 @@ export const CityChildCard:React.FC<CityChil> = ({Hourly,day}) => {
   const dayNumber = date.getDate()
   const [active,setActive]=useState<boolean>(false)
   
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>)=>{
+  const handleClick = ()=>{
     setActive(!active)
   }
   return (
@@ -68,10 +68,6 @@ export const CityChildCard:React.FC<CityChil> = ({Hourly,day}) => {
                       <p>Wind speed</p>
                       <FeelsLike>{Hourly.windSpeed}</FeelsLike>
                     </CenteredDiv>
-                    <CenteredDiv>
-                      <p>Rain</p>
-                      <FeelsLike>{Hourly.rain}</FeelsLike>
-                    </CenteredDiv>
               </TopContent>
             </DropedCardContent>
       
@@ -105,17 +101,15 @@ const CenteredDiv = styled.div({
 
 const WeatherCard = styled.div`
   background-color: var(--fewBlack);
-  width: 100%;
-  height: 200px;
+
   border-radius: 7px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (min-width: 640px) {
-    height: 100px;
-    width: 100%;
-  }
+  height: 100px;
+  width: 100%;
+
 `;
 
 const MoreInfoCard = styled.div<{ $active: boolean }>`
@@ -124,8 +118,6 @@ const MoreInfoCard = styled.div<{ $active: boolean }>`
   background-color: var(--fewBlack);
   transition: .4s ease-in;
   z-index:1;
-  width: 100%;
-  height: 200px;
   right:0;
   left:0;
   border-radius: 7px;
@@ -133,10 +125,8 @@ const MoreInfoCard = styled.div<{ $active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (min-width: 640px) {
-    height: 100px;
-    width: 100%;
-  }
+  height: 100px;
+  width: 100%;
 `;
 
 
@@ -149,16 +139,12 @@ const CardContent = styled.div`
   gap:2em;
   align-items: center;
   background-color: var(--dartyGray);
-  width: 100%;
-  height: 100%;
   border-radius: 7px;
   cursor: pointer;
   border: 1px solid var(--Cardborder);
-
-  @media (min-width: 640px) {
     width: 100%;
     height: 100px;
-  }
+
 `;
 
 const DropedCardContent = styled.div`
@@ -170,15 +156,11 @@ const DropedCardContent = styled.div`
   color:white;
   background-color: var(--darkBlue);
   flex-direction:column;
-  width: 100%;
-  height: 100%;
   gap:1em;
   border-radius: 7px;
   cursor: pointer;
-  @media (min-width: 640px) {
-    width: 100%;
-    height: 100px;
-  }
+  width: 100%;
+  height: 100px;
 `;
 
 const TopContent = styled.div`
@@ -187,9 +169,6 @@ const TopContent = styled.div`
   align-items: center;
   width: 100%;
   gap:2em;
-  @media (min-width: 640px) {
-    width: 100%;
-  }
 `;
 
 const BlurBackground = styled.div`
@@ -287,7 +266,7 @@ const TempMaxValue = styled.p`
 
 const DropDown = styled.div<{ $active: boolean }>`
   position:absolute;
-  right:20px;
+  right:3%;
   transform:${({ $active }) => ($active ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%) rotate(0deg)')};
   transition: .4s ease-in;
   top: 50%;

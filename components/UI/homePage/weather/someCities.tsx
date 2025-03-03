@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherCart from '../cards/WeatherCart';
+import WeatherCart from '../cards/WeatherCard';
 import styled from 'styled-components';
 
 const DIV = styled.div`

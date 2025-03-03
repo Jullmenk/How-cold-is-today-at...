@@ -38,7 +38,6 @@ export default function TempManagement() {
 
   return (
     <Form onSubmit={formik.handleSubmit}>
-      <Temperature />
       <Select
         title="temperature"
         name="temp"
@@ -60,11 +59,16 @@ export default function TempManagement() {
   );
 }
 
-const Form = styled.form({
-  display: 'flex',
-  gap: '10px',
-  alignItems: 'center',
-});
+const Form = styled.form`
+  display: flex;
+  gap: 10px;
+  width:100%;
+  align-items:center;
+  @media (min-width: 640px) {
+  width:27%;  
+  }
+
+  `
 
 const DownDiv = styled.div({
   display: 'flex',
@@ -74,11 +78,12 @@ const DownDiv = styled.div({
 });
 
 const Select = styled.select({
+  width:"100%",
   padding: '10px 30px',
   border: '2px solid var(--gray)',
   fontWeight: '700',
   appearance: 'none',
-
+  color:"black",
   ':active': {
     border: '2px solid var(--gray)',
   },

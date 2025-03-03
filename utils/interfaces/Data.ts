@@ -25,3 +25,7 @@ export interface HourlyGroupedByDay {
   };
 }
 
+export interface cityCoords {
+  lat:number,
+  lon:number,
+}

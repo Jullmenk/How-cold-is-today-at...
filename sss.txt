@@ -1,0 +1,10 @@
+screens: {
+	sm: '450px',
+	bsm: '550px',
+	md: '767px',
+	bmd: '840px',
+	lg: '1023px',
+	blg: '930px',
+	xl: '1279px',
+	'2xl': '1600px'
+},

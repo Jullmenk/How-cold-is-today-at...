@@ -7,7 +7,22 @@ import Moon from "../assets/moon";
 const Header = styled.header`
   width: 100%;
   display: flex;
-  padding: 20px 25%;
+  padding: 20px 2%;
+  @media (min-width: 900px) {
+  padding:20px 6%;
+  }  
+
+  @media (min-width: 1100px) {
+  padding:20px 13%;
+  }
+
+  @media (min-width: 1350px) {
+  padding:20px 17%;
+  }
+
+  @media (min-width: 1600px) {
+  padding:20px 25%;
+  }
   `;
 
 const HeaderComp = styled.div`

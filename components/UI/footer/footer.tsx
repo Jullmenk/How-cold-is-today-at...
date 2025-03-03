@@ -14,12 +14,28 @@ export default function Footer() {
 }
 
 
-const FooterDiv = styled.footer({
-    padding: "0px 25%",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center"
-})
+const FooterDiv = styled.footer`
+    padding: 0px 1%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    @media (min-width: 900px) {
+    padding:0px 6%;
+    }  
+
+    @media (min-width: 1100px) {
+    padding:0px 13%;
+    }
+
+    @media (min-width: 1350px) {
+    padding:0px 17%;
+    }
+
+    @media (min-width: 1600px) {
+    padding:0px 25%;
+    }
+`
 
 const DIV = styled.div({
     paddingTop:"20px",

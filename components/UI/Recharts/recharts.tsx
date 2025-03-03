@@ -9,7 +9,7 @@ interface Hourrr {
 }
 export const Recharts: React.FC<Hourrr> = ({ hourly,kindof }) => {
    const timeData = hourly
-   ? Object.entries(hourly).map(([date, day]) => ({
+   ? Object.entries(hourly).map(([, day]) => ({
        time: `${day.details.dayName} ${day.details.dayNumber}`, 
        temp: Math.round(day.hours[0].temp), 
        tempMin: Math.round(day.details.tempMin), 
@@ -47,6 +47,8 @@ export const Recharts: React.FC<Hourrr> = ({ hourly,kindof }) => {
         <Area type="monotone" dataKey="temp" stackId="1" stroke="#8884d8" fill="var(--darkBlue)" />
         <Area type="monotone" dataKey="tempMin" stackId="1" stroke="#82ca9d" fill="var(--dirtyGray)" />
         <Area type="monotone" dataKey="tempMax" stackId="1" stroke="#ffc658" fill="lightblue" />
+        <Area type="monotone" dataKey="humidity" stackId="1" stroke="#ffc658" fill="lightblue" />
+        <Area type="monotone" dataKey="windSpeed" stackId="1" stroke="#ffc658" fill="lightblue" />
       </AreaChart>
     </ResponsiveContainer>
   );

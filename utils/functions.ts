@@ -1,22 +1,26 @@
-import { HourlyData, HourlyGroupedByDay } from "./interfaces/Data";
+import { cityCoords, HourlyData, HourlyGroupedByDay } from "./interfaces/Data";
+import mapboxgl from "mapbox-gl";
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY
 
 export const fetchWeather = async ({
-  weather,
+  city,
   setLoad,
   setHourlyData,
   setErr,
+  setCityCoord,
   temp,
 }: {
-  weather: string;
+  city: string;
   setLoad: React.Dispatch<React.SetStateAction<boolean>>,
   setHourlyData: React.Dispatch<React.SetStateAction<HourlyGroupedByDay|undefined>>,
   setErr: React.Dispatch<React.SetStateAction<any>>,
+  setCityCoord:React.Dispatch<React.SetStateAction<cityCoords|undefined>>,
   temp:string,
 }) => {
 
         try {
           const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${weather}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&${temp=="Celcius"?"units=metric":"units=imperial"}`
+            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&${temp=="Celcius"?"units=metric":"units=imperial"}`
           );
 
           if (!response.ok) {
@@ -33,6 +37,12 @@ export const fetchWeather = async ({
           
           const data = await response.json();
 
+          const cityCoords = {
+            lat: data.city.coord.lat,
+            lon: data.city.coord.lon,
+          };
+
+          setCityCoord(cityCoords)
 
           const filteredData: HourlyData[] = data.list.map((item: any) => ({
             time: new Date(item.dt * 1000),
@@ -98,3 +108,75 @@ export const fetchWeather = async ({
             setLoad(false);
         }
       };
+
+      
+export const loadMap = ({
+  cityCoord,
+  city,
+  tempUnit,
+  mapContainer,
+  map,
+  hourlyGroupedByDay,
+}: {
+  cityCoord: cityCoords|undefined;
+  city: string;
+  tempUnit: string;
+  mapContainer: HTMLDivElement | null;
+  map: mapboxgl.Map | null;
+  hourlyGroupedByDay: HourlyGroupedByDay; // Adicione os dados reais aqui
+}) => {
+
+  try {
+    if (mapContainer && !map && cityCoord) {
+      const newMap = new mapboxgl.Map({
+        container: mapContainer,
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [cityCoord.lon, cityCoord.lat], // Centraliza na cidade
+        zoom: 10, // Zoom inicial
+      });
+
+      newMap.on("load", () => {
+        // Adicionar marcador na cidade
+        new mapboxgl.Marker()
+          .setLngLat([cityCoord.lon, cityCoord.lat])
+          .addTo(newMap);
+
+        // Adicionar texto com temperatura máxima e mínima (se houver dados)
+        if (Object.keys(hourlyGroupedByDay).length > 0) {
+          const firstDay = Object.keys(hourlyGroupedByDay)[0];
+          const tempMax = hourlyGroupedByDay[firstDay].details.tempMax;
+          const tempMin = hourlyGroupedByDay[firstDay].details.tempMin;
+
+          new mapboxgl.Popup()
+            .setLngLat([cityCoord.lon, cityCoord.lat])
+            .setHTML(
+              `<h3>${city}</h3><p>Max: ${tempMax}°${tempUnit === "Celsius" ? "C" : "F"}</p><p>Min: ${tempMin}°${tempUnit === "Celsius" ? "C" : "F"}</p>`
+            )
+            .addTo(newMap);
+        } else {
+          console.warn("Nenhum dado de temperatura disponível.");
+        }
+      });
+    }
+  } catch (err) {
+    console.error("Erro ao carregar o mapa:", err);
+  }
+};
+
+
+export const firstLoadIpFound = async () => {
+  try {
+    const request = await fetch(`https://ipinfo.io/json?token=${process.env.NEXT_PUBLIC_IP_FIND}`);
+    const jsonResponse = await request.json();
+    console.log("IP Info:", jsonResponse);
+
+    const userIp = jsonResponse.ip;
+    const requestCity = await fetch(`https://ipapi.co/${userIp}/json/`);
+    const cityResponse = await requestCity.json();
+
+    return { cityFound: cityResponse.city || "Unknown" }; // Always return an object
+  } catch (error) {
+    console.error("Error fetching IP data:", error);
+    return { cityFound: "Unknown" }; // Fallback value
+  }
+};
