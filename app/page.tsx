@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import Weather from "@/components/UI/homePage/weather/weather"
+import ClimbingBoxLoader from "react-spinners/ClipLoader";
 
 const MainBox = styled.div`
   @media (min-width: 900px) {
@@ -22,12 +23,34 @@ const MainBox = styled.div`
   }
   min-height:70vh;
   `
-
+const Div = styled.div({
+  width:"100%",
+  display:"flex",
+  justifyContent:"center",
+})
 
 export default function Home() {
+  
+  const [load,setisLoad]=useState<boolean>(true)
+
+  useEffect(()=>{
+    setTimeout(() => {
+      setisLoad(false)
+    }, 500);
+  },[])
+
+  
   return (
         <MainBox>
-          <Weather/>
+          {
+            load?
+            <Div>
+              <ClimbingBoxLoader color='black' size={20}/>
+            </Div>
+            :
+            <Weather/>
+
+          }
         </MainBox>
   );
 }
